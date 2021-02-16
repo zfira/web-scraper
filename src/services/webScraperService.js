@@ -8,8 +8,8 @@ class WebScraperService {
 
     }
 
-    async scrapeUrl(url, maxRecDepth = 2) {
-        let data = await this.scraper.parseSingleUrl(url)
+    async scrapeUrl(url, maxRecDepth = 10) {
+        let data = await this.scraper.parse(url)
         await this.dbHandler.saveUrl(url, data.html)
         await this.publishSubUrls(data.links, maxRecDepth)
         return data

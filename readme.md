@@ -3,10 +3,10 @@
 Run the following commands to get started
 
 - ```bash
-  node app.js
+  redis-server
   ```
 - ```bash
-  redis-server
+  node app.js
   ```
 - ```bash
   node subscriber.js

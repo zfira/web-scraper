@@ -7,7 +7,7 @@ class PuppeteerScraper extends IScraper{
         super();
     }
 
-    async parse(url, maxSubUrls = 5) {
+    async parse(url, maxSubUrls = 0) {
         console.log('parseSingleUrl with the following url', url)
         if (new StringUtils().validateUrl(url) === false){
             throw new Error(`invalid url ${url}`);
@@ -23,7 +23,9 @@ class PuppeteerScraper extends IScraper{
         await page.goto(url, {waitUntil: 'networkidle0'});
         let html = await page.content()
         let hrefs = await page.$$eval('a', as => as.map(a => a.href));
-        hrefs = hrefs.slice(0,maxSubUrls)
+        if (maxSubUrls) {
+            hrefs = hrefs.slice(0, maxSubUrls)
+        }
         console.log(hrefs)
         await page.close()
         await browser.close();
